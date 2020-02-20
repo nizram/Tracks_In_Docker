@@ -20,4 +20,6 @@ RUN bundle install
 COPY . .
 
 #CMD ["./your-daemon-or-script.rb"]
-CMD ["./config.rb"]
+CMD ["/usr/src/app/tracks-2.4.1/config.rb"]
+
+EXPOSE 80/tcp
