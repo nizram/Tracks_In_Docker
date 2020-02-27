@@ -18,7 +18,12 @@ RUN bundler update --bundler
 RUN bundle install
 
 COPY . .
-COPY database.yml /app/config
+COPY database.yml /app/tracks-2.4.2/config
+COPY site.yml /app/tracks-2.4.2/config
+
+RUN bundle exec rake db:migrate RAILS_ENV=production
+RUN bundle exec rake assets:precompile RAILS_ENV=production
+RUN bundle exec rails server -e production
 
 #CMD ["./your-daemon-or-script.rb"]
 CMD ["/app/tracks-2.4.2/config.ru"]
