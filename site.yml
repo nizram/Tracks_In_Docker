@@ -33,7 +33,6 @@ force_ssl: false
 # serve static assets (images, stylesheets, javascript) for you. Change
 # this to 'true' if you want Rails to be responsible for serving the static assets
 # serve_static_assets: false
-serve_static_assets: true
 
 # Uncomment if you want to dispatch todos that come from email based on the To: 
 # address rather than the From: address.
@@ -67,8 +66,7 @@ open_signups: false
 
 # change this to reflect the email address of the admin that you want to show 
 # on the signup page
-#admin_email: my.email@domain.com
-admin_email: marzin@rowan.edu
+admin_email: my.email@domain.com
 
 
 # Map of allowed incoming email addresses to real users

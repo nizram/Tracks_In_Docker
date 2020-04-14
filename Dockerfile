@@ -3,29 +3,37 @@ FROM ruby:2.5
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-WORKDIR /app
+WORKDIR /tmp
 
-#COPY Gemfile Gemfile.lock ./
-#RUN bundle install
+RUN touch /etc/app-env
+
 RUN wget https://github.com/TracksApp/tracks/archive/v2.4.2.zip
 RUN unzip v2.4.2.zip
 
-WORKDIR /app/tracks-2.4.2
+WORKDIR /app
+RUN git clone https://github.com/TracksApp/tracks.git
+RUN ls -la /app
+RUN ls -la /app/tracks
+#RUN ls -la /tmp/tracks-2.4.2 /app
+#RUN ls -la /tmp/tracks-2.4.2/Gemfile*
+#RUN cp /tmp/tracks-2.4.2/Gemfile* /app
+WORKDIR /app/tracks
 
 RUN gem update --system
 RUN gem install bundler
 RUN bundler update --bundler
+RUN bundle config git.allow_insecure true
 RUN bundle install
 
-COPY . .
-COPY database.yml /app/tracks-2.4.2/config
-COPY site.yml /app/tracks-2.4.2/config
+RUN mkdir /app/log
+
+#RUN cp -r /tmp/tracks-2.4.2/* /app
+COPY database_mysql.yml /app/tracks/config/database.yml
+COPY site.yml /app/tracks/config
+#RUN rm -rf /tmp/v.2.4.2.zip /tmp/tracks-2.4.2
+
+EXPOSE 3000
 
 RUN bundle exec rake db:migrate RAILS_ENV=production
 RUN bundle exec rake assets:precompile RAILS_ENV=production
-RUN bundle exec rails server -e production
-
-#CMD ["./your-daemon-or-script.rb"]
-CMD ["/app/tracks-2.4.2/config.ru"]
-
-EXPOSE 3000/tcp
+CMD ["bundle exec rails server -e production"]
