@@ -7,17 +7,17 @@ WORKDIR /tmp
 
 RUN touch /etc/app-env
 
-#RUN wget https://github.com/TracksApp/tracks/archive/v2.4.2.zip
-#RUN unzip v2.4.2.zip
+RUN wget https://github.com/TracksApp/tracks/archive/v2.4.2.zip
+RUN unzip v2.4.2.zip
 
 WORKDIR /app
-RUN git clone https://github.com/TracksApp/tracks.git .
-#RUN ls -la /app
-#RUN ls -la /app/tracks
+RUN git clone https://github.com/TracksApp/tracks.git
+RUN ls -la /app
+RUN ls -la /app/tracks
 #RUN ls -la /tmp/tracks-2.4.2 /app
 #RUN ls -la /tmp/tracks-2.4.2/Gemfile*
 #RUN cp /tmp/tracks-2.4.2/Gemfile* /app
-#WORKDIR /app
+WORKDIR /app/tracks
 
 RUN gem update --system
 RUN gem install bundler
@@ -25,12 +25,12 @@ RUN bundler update --bundler
 RUN bundle config git.allow_insecure true
 RUN bundle install
 
-#RUN mkdir /app/log
+RUN mkdir /app/log
 
 #RUN cp -r /tmp/tracks-2.4.2/* /app
-#COPY database_mysql.yml /app/config/database.yml
-COPY database.yml /app/config/database.yml
-COPY site.yml /app/config
+#COPY database_mysql.yml /app/tracks/config/database.yml
+COPY database.yml /app/tracks/config/database.yml
+COPY site.yml /app/tracks/config
 COPY start.sh /app
 #RUN rm -rf /tmp/v.2.4.2.zip /tmp/tracks-2.4.2
 

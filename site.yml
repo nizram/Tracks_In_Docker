@@ -33,6 +33,7 @@ force_ssl: false
 # serve static assets (images, stylesheets, javascript) for you. Change
 # this to 'true' if you want Rails to be responsible for serving the static assets
 # serve_static_assets: false
+serve_static_assets: true
 
 # Uncomment if you want to dispatch todos that come from email based on the To: 
 # address rather than the From: address.

@@ -21,3 +21,10 @@ services:
       - 3000:3000
     depends_on:
       - mysql
+  tracks_sa:
+    container_name: tracks_sa
+    build: /home/dmarzin/Tracks_In_Docker
+    volumes:
+      - /home/dmarzin/compose/web:/app}
+    ports:
+      - 3000:3000
